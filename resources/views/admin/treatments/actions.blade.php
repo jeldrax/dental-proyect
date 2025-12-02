@@ -6,7 +6,9 @@
 
     {{-- Botón Eliminar (Solo Admin) --}}
     @role('Admin')
-        <button class="text-red-500 hover:underline ml-2">
+        <button
+            wire:click="$dispatch('confirm-delete', { id: {{ $treatment->id }} })"
+            class="text-red-500 hover:underline ml-2">
             <i class="fa-solid fa-trash"></i> Eliminar
         </button>
     @endrole

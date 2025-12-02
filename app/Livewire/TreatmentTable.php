@@ -7,6 +7,7 @@ use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\Treatment;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str; // Para cortar descripciones largas
+use Livewire\Attributes\On;
 
 class TreatmentTable extends DataTableComponent
 {
@@ -37,5 +38,19 @@ class TreatmentTable extends DataTableComponent
                 })
                 ->html(),
         ];
+    }
+
+    // Método que borra el registro
+    #[On('delete-confirmed')]
+    public function deleteTreatment($id)
+    {
+        $treatment = Treatment::find($id);
+
+        if ($treatment) {
+            $treatment->delete();
+            
+            // Opcional: Mensaje de éxito
+            $this->dispatch('swal-success', 'El tratamiento fue eliminado correctamente.');
+        }
     }
 }

@@ -25,3 +25,43 @@
         </div>
     </div>
 </x-app-layout>
+
+@push('modals')
+    <script>
+        document.addEventListener('livewire:initialized', () => {
+            
+            // 1. Escuchar el evento de "Confirmar Eliminación"
+            Livewire.on('confirm-delete', (event) => {
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: "¡No podrás revertir esto!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Sí, eliminarlo',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // 2. Si acepta, llamar al método del componente para borrar
+                        // Nota: 'user-table' debe ser el nombre de tu componente si usas el ID por defecto, 
+                        // pero como usamos $wire dentro del componente, podemos usar dispatch directo al backend.
+                        
+                        // La forma más segura en Livewire 3 desde fuera:
+                        // Busca el componente Livewire por su nombre (TreatmentTable) y llama al método
+                        Livewire.dispatchTo('treatment-table', 'deleteTreatment', { id: event.id });
+                    }
+                });
+            });
+
+            // 3. Escuchar mensaje de éxito (Opcional)
+            Livewire.on('swal-success', (message) => {
+                Swal.fire(
+                    '¡Eliminado!',
+                    message,
+                    'success'
+                )
+            });
+        });
+    </script>
+@endpush
