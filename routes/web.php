@@ -38,5 +38,6 @@ Route::middleware(['auth', 'role:Admin']) // Solo Admins
         // Rutas para Gestión de Usuarios
         Route::resource('users', UserController::class);
         
-        // Aquí pondremos luego la de tratamientos
+        // --- NUEVA RUTA: TRATAMIENTOS ---
+        Route::resource('treatments', \App\Http\Controllers\Admin\TreatmentController::class);
     });
