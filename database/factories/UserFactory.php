@@ -30,12 +30,18 @@ class UserFactory extends Factory
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'two_factor_secret' => null,
             'two_factor_recovery_codes' => null,
             'remember_token' => Str::random(10),
             'profile_photo_path' => null,
             'current_team_id' => null,
+
+            // --- AGREGA ESTOS CAMPOS ---
+            'phone' => fake()->phoneNumber(),
+            'address' => fake()->address(),
+            'id_number' => fake()->numerify('#########'), // 9 números aleatorios
+            // ---------------------------
         ];
     }
 
