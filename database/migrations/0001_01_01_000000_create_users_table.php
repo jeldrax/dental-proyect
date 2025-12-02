@@ -17,6 +17,12 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+
+            // --- AGREGA ESTO ---
+            $table->string('phone')->nullable();
+            $table->string('address')->nullable();
+            $table->string('id_number')->nullable(); // Para DNI o Cédula
+            // -------------------
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();
