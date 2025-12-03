@@ -5,6 +5,16 @@
         </h2>
     </x-slot>
 
+    <x-slot name="breadcrumbs">
+        @php
+        $breadcrumbs = [
+            ['title' => 'Treatments', 'url' => route('admin.treatments.index')],
+            ['title' => 'Edit Treatment: ' . $treatment->name, 'url' => '#']
+        ];
+        @endphp
+        <x-breadcrumbs :breadcrumbs="$breadcrumbs" />
+    </x-slot>
+
     <div class="py-12">
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">

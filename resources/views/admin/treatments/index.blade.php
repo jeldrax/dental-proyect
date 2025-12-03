@@ -12,6 +12,15 @@
         </div>
     </x-slot>
 
+    <x-slot name="breadcrumbs">
+        @php
+        $breadcrumbs = [
+            ['title' => 'Treatments', 'url' => route('admin.treatments.index')]
+        ];
+        @endphp
+        <x-breadcrumbs :breadcrumbs="$breadcrumbs" />
+    </x-slot>
+
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">

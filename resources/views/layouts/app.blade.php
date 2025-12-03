@@ -31,6 +31,10 @@
                     </header>
                 @endif
 
+                @if (isset($breadcrumbs))
+                    {{ $breadcrumbs }}
+                @endif
+
                 <main>
                     {{ $slot }}
                 </main>

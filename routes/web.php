@@ -3,9 +3,12 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
 
+// --- CAMBIO AQUÍ: ---
+// En lugar de 'return view("welcome")', hacemos una redirección al login
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
+// --------------------
 
 Route::middleware([
     'auth:sanctum',
