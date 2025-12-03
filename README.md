@@ -51,14 +51,3 @@ Utiliza estas credenciales para iniciar sesión y acceder al panel administrativ
 
 -----
 
-## 🛠 Tecnologías Utilizadas
-
-  * Laravel 12
-  * Livewire 3
-  * Tailwind CSS
-  * MySQL
-
-<!-- end list -->
-
-```
-```
