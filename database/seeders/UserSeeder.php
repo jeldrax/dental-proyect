@@ -34,5 +34,6 @@ class UserSeeder extends Seeder
         User::factory(15)->create()->each(function ($user) {
             $user->assignRole('Paciente');
         });
+
     }
 }
