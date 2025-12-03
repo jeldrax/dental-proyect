@@ -17,27 +17,33 @@ Route::middleware([
     })->name('dashboard');
 });
 
-Route::redirect('/', '/login'); // Opcional: Para que redirija al login al entrar
-
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-});
-
-// --- NUEVO GRUPO DE RUTAS DE ADMINISTRACIÓN ---
-Route::middleware(['auth', 'role:Admin']) // Solo Admins
-    ->prefix('admin') // La URL será /admin/users
-    ->name('admin.')  // Los nombres serán admin.users.index
+// --- GRUPO DE RUTAS DE ADMINISTRACIÓN ---
+Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])
+    ->prefix('admin')
+    ->name('admin.')
     ->group(function () {
-        
-        // Rutas para Gestión de Usuarios
-        Route::resource('users', UserController::class);
-        
-        // --- NUEVA RUTA: TRATAMIENTOS ---
-        Route::resource('treatments', \App\Http\Controllers\Admin\TreatmentController::class);
+
+        // --- Users (Admin Only) ---
+        Route::middleware(['role:Admin'])
+            ->group(function () {
+                Route::get('users', function () {
+                    return view('admin.users.index');
+                })->name('users.index');
+            });
+
+        // --- Treatments (Users with permission) ---
+        Route::middleware(['permission:admin.treatments.index'])
+            ->group(function () {
+                Route::get('treatments', function() {
+                    return view('admin.treatments.index');
+                })->name('treatments.index');
+            });
+
+        // --- Patients (Dentists and Receptionists) ---
+        Route::middleware(['permission:admin.users.index'])
+            ->group(function () {
+                Route::get('patients', function() {
+                    return view('admin.patients.index');
+                })->name('patients.index');
+            });
     });

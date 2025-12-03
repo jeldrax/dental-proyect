@@ -12,6 +12,8 @@ use Livewire\Attributes\On;
 class TreatmentTable extends DataTableComponent
 {
     protected $model = Treatment::class;
+    
+    protected $listeners = ['treatmentSaved' => '$refresh'];
 
     public function configure(): void
     {
@@ -40,17 +42,19 @@ class TreatmentTable extends DataTableComponent
         ];
     }
 
-    // Método que borra el registro
-    #[On('delete-confirmed')]
+    #[On('confirm-delete')]
     public function deleteTreatment($id)
     {
+        if (!auth()->user()->can('admin.treatments.delete')) {
+            $this->dispatch('show-swal-error', 'No tienes permiso para eliminar tratamientos.');
+            return;
+        }
+
         $treatment = Treatment::find($id);
 
         if ($treatment) {
             $treatment->delete();
-            
-            // Opcional: Mensaje de éxito
-            $this->dispatch('swal-success', 'El tratamiento fue eliminado correctamente.');
+            $this->dispatch('show-swal-success', 'El tratamiento fue eliminado correctamente.');
         }
     }
 }

@@ -1,15 +1,13 @@
-<div class="flex space-x-2">
-    {{-- Botón Editar --}}
-    <a href="{{ route('admin.treatments.edit', $treatment) }}" class="text-blue-500 hover:underline">
-        <i class="fa-solid fa-pen"></i> Editar
-    </a>
-
-    {{-- Botón Eliminar (Solo Admin) --}}
-    @role('Admin')
-        <button
-            wire:click="$dispatch('confirm-delete', { id: {{ $treatment->id }} })"
-            class="text-red-500 hover:underline ml-2">
-            <i class="fa-solid fa-trash"></i> Eliminar
+<div class="flex items-center space-x-2">
+    @can('admin.treatments.edit')
+        <button wire:click="$dispatch('edit-treatment', { id: {{ $treatment->id }} })" class="text-indigo-600 hover:text-indigo-900">
+            <i class="fa-solid fa-pen-to-square"></i>
         </button>
-    @endrole
+    @endcan
+
+    @can('admin.treatments.delete')
+        <button wire:click="$dispatch('confirm-delete', { id: {{ $treatment->id }} })" class="text-red-600 hover:text-red-900">
+            <i class="fa-solid fa-trash"></i>
+        </button>
+    @endcan
 </div>

@@ -10,8 +10,8 @@
                   'active' => request()->routeIs('dashboard'),
               ],
           ];
-
-          // Lógica para ADMIN
+         
+          // 1. GESTIÓN DE USUARIOS
           if (auth()->user()->hasRole('Admin')) {
               $links[] = ['header' => 'ADMINISTRACIÓN'];
               
@@ -23,14 +23,26 @@
               ];
           }
 
-          // Lógica para DENTISTAS y ADMIN
-          if (auth()->user()->hasRole(['Admin', 'Dentista'])) {
-              $links[] = ['header' => 'CLÍNICA'];
+          // Enlace a PACIENTES para Dentistas y Recepcionistas
+          if (auth()->user()->can('admin.users.index') && !auth()->user()->hasRole('Admin')) {
+              $links[] = ['header' => 'GESTIÓN'];
 
+              $links[] = [
+                  'name' => 'Pacientes',
+                  'icon' => 'fa-solid fa-user-injured',
+                  'href' => route('admin.patients.index'),
+                  'active' => request()->routeIs('admin.patients.*'),
+              ];
+          }
+       
+          // 2. TRATAMIENTOS (Catálogo)
+          if (auth()->user()->can('admin.treatments.index')) {
+              $links[] = ['header' => 'CLÍNICA'];
+          
               $links[] = [
                   'name' => 'Tratamientos',
                   'icon' => 'fa-solid fa-tooth',
-                  'href' => route('admin.treatments.index'), // route('admin.treatments.index') cuando la tengas
+                  'href' => route('admin.treatments.index'),
                   'active' => request()->routeIs('admin.treatments.*'),
               ];
           }

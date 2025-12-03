@@ -44,11 +44,9 @@
 
         <script>
             document.addEventListener('livewire:init', () => {
-                // 1. Escuchar el evento "confirm-delete" que envías desde el botón
+                // Listener para el diálogo de confirmación de borrado
                 Livewire.on('confirm-delete', (event) => {
-                    
-                    // Aseguramos el ID (a veces viene en un objeto)
-                    let idToDelete = event.id || event; 
+                    let idToDelete = event.id || event;
 
                     Swal.fire({
                         title: '¿Estás seguro?',
@@ -61,19 +59,27 @@
                         cancelButtonText: 'Cancelar'
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            // 2. Si el usuario dice SÍ, enviamos la orden al componente Livewire
                             Livewire.dispatch('delete-confirmed', { id: idToDelete });
                         }
                     });
                 });
 
-                // 3. (Opcional) Escuchar cuando ya se borró para mostrar éxito
-                Livewire.on('treatment-deleted', () => {
-                    Swal.fire(
-                        '¡Eliminado!',
-                        'El registro ha sido eliminado.',
-                        'success'
-                    )
+                // Listener para mensajes de éxito
+                Livewire.on('show-swal-success', message => {
+                    Swal.fire({
+                        title: '¡Éxito!',
+                        text: message,
+                        icon: 'success'
+                    });
+                });
+
+                // Listener para mensajes de error
+                Livewire.on('show-swal-error', message => {
+                    Swal.fire({
+                        title: 'Error',
+                        text: message,
+                        icon: 'error'
+                    });
                 });
             });
         </script>
