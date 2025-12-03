@@ -12,6 +12,10 @@ class DeleteUser implements DeletesUsers
      */
     public function delete(User $user): void
     {
+        if ($user->hasRole('Admin')) {
+            throw new \Exception('Cannot delete a user with the Admin role.');
+        }
+
         $user->deleteProfilePhoto();
         $user->tokens->each->delete();
         $user->delete();

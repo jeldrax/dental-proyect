@@ -7,6 +7,7 @@ use Livewire\Component;
 
 class PatientTable extends Component
 {
+    #[On('refreshPatientTable')]
     public function render()
     {
         // Tu lógica está bien: busca usuarios con el rol 'Paciente'

@@ -5,7 +5,7 @@
                 Pacientes
             </h1>
             @can('admin.users.create')
-                <a href="#" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">
+                <a href="#" wire:click="$dispatch('createPatient')" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">
                     Crear Paciente
                 </a>
             @endcan
@@ -39,7 +39,7 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                 @can('admin.users.edit')
-                                    <a href="#" class="text-indigo-600 hover:text-indigo-900">Editar</a>
+                                    <a href="#" wire:click="$dispatch('editPatient', { patientId: {{ $patient->id }} })" class="text-indigo-600 hover:text-indigo-900">Editar</a>
                                 @endcan
                                 @can('admin.users.delete')
                                     <a href="#" class="text-red-600 hover:text-red-900 ml-4">Eliminar</a>
@@ -51,4 +51,5 @@
             </table>
         </div>
     </div>
+    @livewire('patient-form-modal')
 </div>
