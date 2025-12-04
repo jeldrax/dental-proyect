@@ -1,11 +1,15 @@
 ````markdown
-# Dental Proyect 🦷
+# DentalCare
 
-Sistema de gestión integral para clínicas dentales. Permite la administración de pacientes, doctores, catálogo de tratamientos y asignación de citas médicas de forma segura y eficiente.
+##Descripción del Sistema
+**DentalCare** es una plataforma web para la gestión administrativa de una clínica dental, desarrollada con **Laravel 11**, **Jetstream** y **Livewire**.
 
----
+El sistema permite controlar el flujo de trabajo del consultorio mediante:
+* **Gestión de Usuarios:** Administración de roles (Admin, Dentista, Recepcionista, Paciente).
+* **Catálogo de Tratamientos:** Control de servicios, precios y descripciones.
+* **Seguridad:** Autenticación robusta y protección de rutas.
 
-## ⚙️ Instrucciones de Instalación Local
+## Instrucciones de Instalación Local
 
 Ejecutar el proyecto en tu entorno:
 
